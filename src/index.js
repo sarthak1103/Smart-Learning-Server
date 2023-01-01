@@ -51,6 +51,15 @@ app.use(
 app.use("/",require('../routes/routes'));
 app.use("/users",require('../routes/routes'));
 app.use(errors.errorHandler); 
+
+
+if(process.env.NODE_ENV === "production")
+{
+    app.use(express.static(__dirname+"/dist/"));
+    app.get('*',(req,res)=>{
+        res.sendFile(__dirname+"/dist/index.html");
+    });
+}
 //start server
 
 app.listen(port,()=>{
